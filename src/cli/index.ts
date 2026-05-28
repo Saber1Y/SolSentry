@@ -379,7 +379,7 @@ program
       logger.info(`Slot: ${slotInfo.slot} | Leader: ${slotInfo.leader} | Jito: ${jitoWindow.leaderSlot}`)
 
       const urgency = recentFailures > 2 ? 'high' : 'medium'
-      const tipData = await tipCalc.calculateTip('jito_api', urgency)
+      const tipData = await tipCalc.calculateTip('real', urgency)
       await agent.decideTip(tipData, urgency)
 
       try {
@@ -408,7 +408,7 @@ program
 
           if (aiDecision.type !== 'abort') {
             logger.info(`[Agent] ${aiDecision.action}`)
-            const retryTip = await tipCalc.calculateTip('jito_api', 'high')
+            const retryTip = await tipCalc.calculateTip('real', 'high')
             const retryBundle = await builder.buildBundle(retryTip, dest)
             const retryRecord = tracker.createRecord(`${bundleId}-retry`, slotInfo.slot, retryTip.recommendedTip, retryBundle.blockhash)
             retryRecord.retryCount = record.retryCount + 1
