@@ -1,3 +1,5 @@
+import { existsSync, mkdirSync, writeFileSync } from 'fs'
+import { join } from 'path'
 import { Connection, PublicKey, TransactionSignature } from '@solana/web3.js'
 import { BundleLifecycle, BundleStatus } from '../types.js'
 import { loadConfig } from '../config.js'
@@ -119,14 +121,12 @@ export class LifecycleTracker {
 
   private exportLogs() {
     try {
-      const fs = require('fs')
-      const path = require('path')
-      const logsDir = path.join(process.cwd(), 'logs')
-      if (!fs.existsSync(logsDir)) {
-        fs.mkdirSync(logsDir, { recursive: true })
+      const logsDir = join(process.cwd(), 'logs')
+      if (!existsSync(logsDir)) {
+        mkdirSync(logsDir, { recursive: true })
       }
-      fs.writeFileSync(
-        path.join(logsDir, 'lifecycle_logs.json'),
+      writeFileSync(
+        join(logsDir, 'lifecycle_logs.json'),
         JSON.stringify(this.completedLogs, null, 2)
       )
     } catch {

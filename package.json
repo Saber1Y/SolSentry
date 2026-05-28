@@ -16,22 +16,23 @@
     "inject-fault": "node dist/cli/index.js inject-fault",
     "dev": "tsx src/index.ts",
     "dev:cli": "tsx src/cli/index.ts",
+    "dev:start": "MODE=real tsx src/cli/index.ts start",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@solana/web3.js": "^1.98.0",
+    "bs58": "^6.0.0",
     "commander": "^12.1.0",
-    "openai": "^4.73.0",
     "dotenv": "^16.4.7",
-    "bs58": "^6.0.0"
+    "openai": "^4.73.0"
   },
   "optionalDependencies": {
     "@triton-one/yellowstone-grpc": "^5.0.0",
-    "jito-js-rpc": "^0.2.0"
+    "jito-js-rpc": "^0.2.2"
   },
   "devDependencies": {
-    "typescript": "^5.7.0",
+    "@types/node": "^22.10.0",
     "tsx": "^4.19.0",
-    "@types/node": "^22.10.0"
+    "typescript": "^5.7.0"
   }
 }
