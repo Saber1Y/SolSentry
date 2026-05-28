@@ -1,0 +1,37 @@
+{
+  "name": "solsentry",
+  "version": "1.0.0",
+  "description": "Smart Solana transaction ops — Jito bundles, Yellowstone streaming, AI agent for retry/tip decisions, lifecycle tracking",
+  "type": "module",
+  "bin": {
+    "solsentry": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "cli": "node dist/cli/index.js",
+    "simulate": "node dist/cli/index.js simulate",
+    "submit": "node dist/cli/index.js submit",
+    "logs": "node dist/cli/index.js logs",
+    "inject-fault": "node dist/cli/index.js inject-fault",
+    "dev": "tsx src/index.ts",
+    "dev:cli": "tsx src/cli/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.0",
+    "commander": "^12.1.0",
+    "openai": "^4.73.0",
+    "dotenv": "^16.4.7",
+    "bs58": "^6.0.0"
+  },
+  "optionalDependencies": {
+    "@triton-one/yellowstone-grpc": "^5.0.0",
+    "jito-js-rpc": "^0.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "tsx": "^4.19.0",
+    "@types/node": "^22.10.0"
+  }
+}
