@@ -13,7 +13,17 @@ export class ReasoningEngine {
       const { default: OpenAI } = await import('openai')
       const { loadConfig } = await import('../config.js')
       const config = loadConfig()
-      const openai = new OpenAI({ apiKey: config.openaiApiKey })
+
+      const isOpenRouter = config.aiProvider === 'openrouter'
+      const apiKey = isOpenRouter ? config.openrouterApiKey : config.openaiApiKey
+      const baseURL = isOpenRouter ? config.openrouterBaseUrl : undefined
+
+      if (!apiKey) {
+        logger.warn('[AI] No API key configured for', config.aiProvider)
+        return this.ruleBasedReason(failure, reason, tipData, context, history)
+      }
+
+      const client = new OpenAI({ apiKey, baseURL })
 
       const prompt = `You are a Solana transaction ops agent. Analyze this failure and decide next action.
 
@@ -33,8 +43,8 @@ Respond with JSON:
   "confidence": 0.0-1.0
 }`
 
-      const resp = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
+      const resp = await client.chat.completions.create({
+        model: config.aiModel,
         messages: [{ role: 'user', content: prompt }],
         response_format: { type: 'json_object' },
       })

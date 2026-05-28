@@ -24,7 +24,8 @@ export class BundleAgent {
     const failure = lifecycle.failureCategory || 'unknown'
     const reason = lifecycle.failureReason || 'Unknown error'
 
-    const useLLM = !!(config.openaiApiKey && config.mode === 'real')
+    const llmKey = config.aiProvider === 'openrouter' ? config.openrouterApiKey : config.openaiApiKey
+    const useLLM = !!(llmKey && config.mode === 'real')
 
     let decision: AIDecision
 

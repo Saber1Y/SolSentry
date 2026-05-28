@@ -57,6 +57,8 @@ export interface TipData {
   source: 'jito_api' | 'historical' | 'simulated'
 }
 
+export type AIProvider = 'openai' | 'openrouter'
+
 export interface Config {
   solanaRpcUrl: string
   solanaWsUrl: string
@@ -66,6 +68,10 @@ export interface Config {
   yellowstoneGrpcToken: string
   walletPrivateKey: string
   openaiApiKey: string
+  openrouterApiKey: string
+  openrouterBaseUrl: string
+  aiProvider: AIProvider
+  aiModel: string
   mode: 'real' | 'simulation'
 }
 
